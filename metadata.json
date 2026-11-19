@@ -1,0 +1,6 @@
+{
+  "name": "Amazon.sg: iphone duo case",
+  "description": "Amazon Singapore search results storefront for iPhone duo protective cases with faceted filtering, variant selection, and cart management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
