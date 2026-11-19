@@ -217,7 +217,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               <button
                 type="button"
                 onClick={handleCheckout}
-                className="w-full py-2.5 px-4 rounded-full bg-[#ffa41c] hover:bg-[#fa8900] border border-[#ff8f00] text-[14px] font-medium text-[#0f1111] transition-colors"
+                className="w-full py-3 px-5 rounded-full bg-[#ffa41c] hover:bg-[#fa8900] border border-[#ff8f00] text-[15px] font-bold text-[#0f1111] transition-colors"
               >
                 Buy Now with 1-Click
               </button>

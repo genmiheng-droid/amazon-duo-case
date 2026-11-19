@@ -178,7 +178,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </div>
 
           {/* Actions */}
-          <div className="mt-3 flex flex-col sm:w-[200px] gap-2">
+          <div className="mt-3 flex flex-col sm:w-[220px] gap-2">
             <button
               type="button"
               onClick={handleAdd}
@@ -199,7 +199,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             <button
               type="button"
               onClick={handleOneClickBuy}
-              className={`w-full px-4 py-1.5 rounded-full text-[13px] font-medium border transition-colors whitespace-nowrap ${
+              className={`w-full px-4 py-2.5 rounded-full text-[14px] font-bold border transition-colors whitespace-nowrap ${
                 justBought
                   ? 'bg-[#067d62] border-[#067d62] text-white'
                   : 'bg-[#ffa41c] hover:bg-[#fa8900] border-[#ff8f00] text-[#0f1111]'
@@ -207,7 +207,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             >
               {justBought ? (
                 <span className="inline-flex items-center justify-center gap-1">
-                  <Check className="w-3.5 h-3.5" /> Order placed
+                  <Check className="w-4 h-4" /> Order placed
                 </span>
               ) : (
                 'Buy Now with 1-Click'
@@ -374,7 +374,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <button
             type="button"
             onClick={handleOneClickBuy}
-            className={`w-full py-1.5 px-3 rounded-full text-[13px] font-medium border transition-colors whitespace-nowrap ${
+            className={`w-full py-2.5 px-4 rounded-full text-[14px] font-bold border transition-colors whitespace-nowrap ${
               justBought
                 ? 'bg-[#067d62] border-[#067d62] text-white'
                 : 'bg-[#ffa41c] hover:bg-[#fa8900] border-[#ff8f00] text-[#0f1111]'
@@ -382,7 +382,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           >
             {justBought ? (
               <span className="inline-flex items-center justify-center gap-1">
-                <Check className="w-3.5 h-3.5" /> Order placed
+                <Check className="w-4 h-4" /> Order placed
               </span>
             ) : (
               'Buy Now with 1-Click'
