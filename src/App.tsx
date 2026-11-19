@@ -193,12 +193,17 @@ export default function App() {
     product: Product,
     color: ColorVariant,
     model: string,
-    qty: number
+    qty: number,
+    voucherApplied = false
   ) => {
     setSelectedDetail(null);
-    const total = (product.price * qty).toFixed(2);
+    const discountMultiplier =
+      voucherApplied && product.voucherDiscountPercent
+        ? 1 - product.voucherDiscountPercent / 100
+        : 1;
+    const total = (product.price * discountMultiplier * qty).toFixed(2);
     setExpressOrderBanner(
-      `Express Order Confirmed: ${qty}× ${product.brand} (${model}, ${color.name}) — S$${total} arriving ${product.deliveryDate} to Singapore ${postalCode}.`
+      `1-Click Order Confirmed: ${qty}× ${product.brand} (${model}, ${color.name}) — S$${total} arriving ${product.deliveryDate} to Singapore ${postalCode}.`
     );
     setTimeout(() => setExpressOrderBanner(null), 6000);
   };
@@ -496,6 +501,9 @@ export default function App() {
                   postalCode={postalCode}
                   onSelectProduct={(p, color) => setSelectedDetail({ product: p, color })}
                   onAddToCart={(p, color) => addToCart(p, color)}
+                  onBuyNow={(p, color, voucherApplied) =>
+                    handleBuyNow(p, color, p.models[0], 1, voucherApplied)
+                  }
                 />
               ))}
             </div>
@@ -509,6 +517,9 @@ export default function App() {
                   postalCode={postalCode}
                   onSelectProduct={(p, color) => setSelectedDetail({ product: p, color })}
                   onAddToCart={(p, color) => addToCart(p, color)}
+                  onBuyNow={(p, color, voucherApplied) =>
+                    handleBuyNow(p, color, p.models[0], 1, voucherApplied)
+                  }
                 />
               ))}
             </div>

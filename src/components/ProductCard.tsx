@@ -9,6 +9,7 @@ interface ProductCardProps {
   viewMode: 'grid' | 'list';
   onSelectProduct: (product: Product, color: ColorVariant) => void;
   onAddToCart: (product: Product, color: ColorVariant) => void;
+  onBuyNow: (product: Product, color: ColorVariant, voucherApplied: boolean) => void;
   postalCode: string;
 }
 
@@ -17,11 +18,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   viewMode,
   onSelectProduct,
   onAddToCart,
+  onBuyNow,
   postalCode,
 }) => {
   const [selectedColor, setSelectedColor] = useState<ColorVariant>(product.colors[0]);
   const [voucherApplied, setVoucherApplied] = useState(false);
   const [justAdded, setJustAdded] = useState(false);
+  const [justBought, setJustBought] = useState(false);
   const [imgError, setImgError] = useState(false);
 
   const activeImage = selectedColor.image || product.image;
@@ -31,6 +34,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     onAddToCart(product, selectedColor);
     setJustAdded(true);
     setTimeout(() => setJustAdded(false), 1400);
+  };
+
+  const handleOneClickBuy = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onBuyNow(product, selectedColor, voucherApplied);
+    setJustBought(true);
+    setTimeout(() => setJustBought(false), 1600);
   };
 
   const savingsPercent =
@@ -168,18 +178,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </div>
 
           {/* Actions */}
-          <div className="mt-3 flex flex-wrap items-center gap-2">
+          <div className="mt-3 flex flex-col sm:w-[200px] gap-2">
             <button
               type="button"
               onClick={handleAdd}
-              className={`px-4 py-1.5 rounded-full text-[13px] font-medium border transition-colors whitespace-nowrap ${
+              className={`w-full px-4 py-1.5 rounded-full text-[13px] font-medium border transition-colors whitespace-nowrap ${
                 justAdded
                   ? 'bg-[#067d62] border-[#067d62] text-white'
                   : 'bg-[#ffd814] hover:bg-[#f7ca00] border-[#fcd200] text-[#0f1111]'
               }`}
             >
               {justAdded ? (
-                <span className="inline-flex items-center gap-1">
+                <span className="inline-flex items-center justify-center gap-1">
                   <Check className="w-3.5 h-3.5" /> Added to cart
                 </span>
               ) : (
@@ -188,8 +198,25 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             </button>
             <button
               type="button"
+              onClick={handleOneClickBuy}
+              className={`w-full px-4 py-1.5 rounded-full text-[13px] font-medium border transition-colors whitespace-nowrap ${
+                justBought
+                  ? 'bg-[#067d62] border-[#067d62] text-white'
+                  : 'bg-[#ffa41c] hover:bg-[#fa8900] border-[#ff8f00] text-[#0f1111]'
+              }`}
+            >
+              {justBought ? (
+                <span className="inline-flex items-center justify-center gap-1">
+                  <Check className="w-3.5 h-3.5" /> Order placed
+                </span>
+              ) : (
+                'Buy Now with 1-Click'
+              )}
+            </button>
+            <button
+              type="button"
               onClick={() => onSelectProduct(product, selectedColor)}
-              className="px-3.5 py-1.5 rounded-full text-[13px] font-medium bg-white hover:bg-[#f7fafa] border border-[#d5d9d9] text-[#0f1111] whitespace-nowrap"
+              className="w-full px-3.5 py-1.5 rounded-full text-[13px] font-medium bg-white hover:bg-[#f7fafa] border border-[#d5d9d9] text-[#0f1111] whitespace-nowrap"
             >
               See options
             </button>
@@ -325,8 +352,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </div>
         </div>
 
-        {/* Add to Cart */}
-        <div className="pt-1">
+        {/* Add to Cart & 1-Click Buy */}
+        <div className="pt-1 space-y-2">
           <button
             type="button"
             onClick={handleAdd}
@@ -342,6 +369,23 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               </span>
             ) : (
               'Add to cart'
+            )}
+          </button>
+          <button
+            type="button"
+            onClick={handleOneClickBuy}
+            className={`w-full py-1.5 px-3 rounded-full text-[13px] font-medium border transition-colors whitespace-nowrap ${
+              justBought
+                ? 'bg-[#067d62] border-[#067d62] text-white'
+                : 'bg-[#ffa41c] hover:bg-[#fa8900] border-[#ff8f00] text-[#0f1111]'
+            }`}
+          >
+            {justBought ? (
+              <span className="inline-flex items-center justify-center gap-1">
+                <Check className="w-3.5 h-3.5" /> Order placed
+              </span>
+            ) : (
+              'Buy Now with 1-Click'
             )}
           </button>
         </div>
